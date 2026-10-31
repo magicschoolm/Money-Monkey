@@ -19,16 +19,15 @@ function Home() {
 
           
 
-          <section id="CompanyDepartmentTrans">
-          <AddNewTrans />
+          {/* <section id="CompanyDepartmentTrans">
           <CompanyDepartmentTrans />
-          </section>
+          </section> */}
 
 
        
-          <section id="MonkeyBookTrans">
+        
             <MonkeyBookTrans />
-          </section>
+
 
       </main>
       

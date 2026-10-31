@@ -1,23 +1,9 @@
 import { useState } from "react";
-import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
-
+import { Link } from "react-router-dom";
+import AddTransaction from "../Components/AddNewTrans"
 function Navbar() {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const location = useLocation();
-  const committedQuery = searchParams.get("q") ?? "";
-  const [draft, setDraft] = useState({
-    search: location.search,
-    value: committedQuery,
-  });
-  const searchValue =
-    draft.search === location.search ? draft.value : committedQuery;
-
-  const handleSearch = (event) => {
-    event.preventDefault();
-    const query = searchValue.trim();
-    navigate(query ? `/?q=${encodeURIComponent(query)}#MonkeyBookTrans` : "/");
-  };
+  const [showEdit, setShowEdit] = useState(false);
+ 
 
   return (
     <nav className="navbar">
@@ -25,21 +11,20 @@ function Navbar() {
         Money & Monkey
       </Link>
 
-      <form className="navbar-search" role="search" onSubmit={handleSearch}>
-        <label className="visually-hidden" htmlFor="transaction-search">
-          Search transactions
-        </label>
-        <input
-          id="transaction-search"
-          type="search"
-          placeholder="Search transactions"
-          value={searchValue}
-          onChange={(event) =>
-            setDraft({ search: location.search, value: event.target.value })
-          }
+      <button
+        className="nav-add-button"
+        type="button"
+        onClick={() => setShowEdit(true)}
+      >
+        + Add Transaction
+      </button>
+
+      {showEdit && (
+        <AddTransaction
+          mode="add"
+          onClose={() => setShowEdit(false)}
         />
-        <button type="submit">Search</button>
-      </form>
+      )}
 
       <ul className="nav-links">
         <li>
